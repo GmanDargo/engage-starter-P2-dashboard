@@ -1,10 +1,11 @@
 
 
-var tableElement = document.getElementById('dashboard-list');
+var tableElement = document.getElementById('dashboard-list');  //finds element in html file with this id - dashboard-list
 
 var tableList = [
     {rank: '1', name: 'LoL', type: 'MOBA', cost: 'free',  year: '2010'},
-    {rank: '2', name: 'LoL', type: 'MOBA', cost: 'free',  year: '2010'}
+    {rank: '2', name: 'Half-life', type: 'FPS', cost: '$19',  year: '2005'},
+    {rank: '3', name: 'Starcraft', type: 'RTS', cost: '$19',  year: '2008'}
 ];
 
 for (var i=0; i < tableList.length; i++) {
