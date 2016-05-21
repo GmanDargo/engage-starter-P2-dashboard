@@ -77,6 +77,12 @@
           <div id="persons-area" class="row placeholders">
             
           </div>
+          
+          <div class="row">
+            <input type="text" id="name-input" placeholder="Name">
+            <button class="btn btn-primary" 
+            onclick="dashboard.addTableElement()">Save</button>
+          </div>
 
           <h2 class="sub-header">Section title</h2>
           <div class="table-responsive">
@@ -98,6 +104,19 @@
         </div>
       </div>
     </div>
+    
+    <!--- FIREBASE --->
+    <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyCoSP1Npjaqe9G_XaWVerjZ12B8FZlESlU",
+        authDomain: "engagestarter2.firebaseapp.com",
+        databaseURL: "https://engagestarter2.firebaseio.com",
+        storageBucket: "engagestarter2.appspot.com",
+      };
+      firebase.initializeApp(config);
+    </script>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
