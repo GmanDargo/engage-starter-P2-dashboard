@@ -63,8 +63,16 @@ dashboard.search = function search(value) {
 };
 
 dashboard.addTableElement = function addTableElement() {
+  /*var name = document.getElementById('game-name').value;
+  var type = document.getElementById('game-type').value;
+  var cost = document.getElementById('game-cost').value;
+  var price = cost.toFixed(2);
+  var year = document.getElementById('game-year').value;
+  var rank = Math.floor(Math.random() * 101);
+  var url = document.getElementById('game-url').value;
+  // var image =  */
   var name = document.getElementById('name-input').value;
-  firebase.database().ref('table-elements').push({
+  firebase.database().ref('table-elements').push({              // to send data to firebase database
     rank: '1' + Math.random() * 100, 
     name: name, 
     type: 'MOBA', 
@@ -78,3 +86,92 @@ dashboard.buildPersonsArea('');
 firebase.database().ref('table-elements').on('child_added', function(data) {
   dashboard.buildTable('', [data.val()]);
 });
+
+
+/* Modal Javascript */
+
+/* http://www.the-art-of-web.com/javascript/feedback-modal-window/
+// Original JavaScript code by Chirp Internet: www.chirp.com.au
+// Please acknowledge use of this code by including this header. */
+
+// Original JavaScript code by Chirp Internet: www.chirp.com.au
+// Please acknowledge use of this code by including this header.
+
+var checkForm = function(e)
+{
+  var form = (e.target) ? e.target : e.srcElement;
+  if(form.name.value == "") {
+    alert("Please enter your Name");
+    form.name.focus();
+    e.preventDefault ? e.preventDefault() : e.returnValue = false;
+    return;
+  }
+  if(form.email.value == "") {
+    alert("Please enter a valid Email address");
+    form.email.focus();
+    e.preventDefault ? e.preventDefault() : e.returnValue = false;
+    return;
+  }
+  if(form.message.value == "") {
+    alert("Please enter your comment or question in the Message box");
+    form.message.focus();
+    e.preventDefault ? e.preventDefault() : e.returnValue = false;
+    return;
+  }
+};
+
+var modal_init = function() {
+
+  var modalWrapper = document.getElementById("modal_wrapper");
+  var modalWindow  = document.getElementById("modal_window");
+
+  var openModal = function(e)
+  {
+    modalWrapper.className = "overlay";
+    var overflow = modalWindow.offsetHeight - document.documentElement.clientHeight;
+    if(overflow > 0) {
+      modalWindow.style.maxHeight = (parseInt(window.getComputedStyle(modalWindow).height) - overflow) + "px";
+    }
+    modalWindow.style.marginTop = (-modalWindow.offsetHeight)/2 + "px";
+    modalWindow.style.marginLeft = (-modalWindow.offsetWidth)/2 + "px";
+    e.preventDefault ? e.preventDefault() : e.returnValue = false;
+  };
+
+  var closeModal = function(e)
+  {
+    modalWrapper.className = "";
+    e.preventDefault ? e.preventDefault() : e.returnValue = false;
+  };
+
+  var clickHandler = function(e) {
+    if(!e.target) e.target = e.srcElement;
+    if(e.target.tagName == "DIV") {
+      if(e.target.id != "modal_window") closeModal(e);
+    }
+  };
+
+  var keyHandler = function(e) {
+    if(e.keyCode == 27) closeModal(e);
+  };
+
+  if(document.addEventListener) {
+    document.getElementById("modal_open").addEventListener("click", openModal, false);
+    document.getElementById("modal_close").addEventListener("click", closeModal, false);
+    document.addEventListener("click", clickHandler, false);
+    document.addEventListener("keydown", keyHandler, false);
+  } else {
+    document.getElementById("modal_open").attachEvent("onclick", openModal);
+    document.getElementById("modal_close").attachEvent("onclick", closeModal);
+    document.attachEvent("onclick", clickHandler);
+    document.attachEvent("onkeydown", keyHandler);
+  }
+
+};
+
+if(document.addEventListener) {
+  document.getElementById("modal_feedback").addEventListener("submit", checkForm, false);
+  document.addEventListener("DOMContentLoaded", modal_init, false);
+} else {
+  document.getElementById("modal_feedback").attachEvent("onsubmit", checkForm);
+  window.attachEvent("onload", modal_init);
+}

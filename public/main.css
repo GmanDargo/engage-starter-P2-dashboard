@@ -85,6 +85,21 @@ body {
   margin-top: 0;
 }
 
+.buttons {
+  margin-bottom: 30px;
+}
+
+.buttons .btn {
+  margin-left: 15px;
+}
+
+.buttons .btn:first-child {
+  margin-left: 0px;
+}
+
+.buttons .btn:last-child {
+  margin-right: 15px;
+}
 
 /*
  * Placeholder dashboard ideas
@@ -103,4 +118,43 @@ body {
 .placeholder img {
   display: inline-block;
   border-radius: 50%;
+}
+
+/*
+ * Modal Styling
+ */
+ 
+ /* http://www.the-art-of-web.com/javascript/feedback-modal-window/
+// Original JavaScript code by Chirp Internet: www.chirp.com.au
+// Please acknowledge use of this code by including this header. */
+
+#modal_wrapper.overlay:before {
+    content: " ";
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    background: #000;
+    background: rgba(0,0,0,0.7);
+}
+
+#modal_window {
+    display: none;
+    z-index: 200;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    width: 33%;
+    overflow: auto;
+    padding: 10px 20px;
+    background: #fff;
+    border: 5px solid #999;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+#modal_wrapper.overlay #modal_window {
+    display: block;
 }
