@@ -7,18 +7,18 @@ var persons = [
     {name: 'Moss', info: 'There\'s a fire Roy', img: 'imgres.jpg'}
 ]
 
-/*var tableList = [
+// var tableList = [];
+
+var tableList = [
     {rank: '1', name: 'LoL', type: 'MOBA', cost: 'free',  year: '2010'},
     {rank: '2', name: 'Half-Life', type: 'FPS', cost: '$19',  year: '2005'},
     {rank: '3', name: 'StarCraft', type: 'RTS', cost: '$19',  year: '2008'}
 ];
-*/
 
 dashboard = {};
 
-dashboard.buildTable = function buildTable(value, tableList) {
-    if (value) value = value.toLowerCase()
-    if(!tableList) tableList = [];
+dashboard.buildTable = function buildTable(value) {
+    // if(!tableList) tableList = [];
     tableElement.innerHTML = '';
     for (var i=0; i < tableList.length; i++) {
         var tr = document.createElement('TR');
@@ -38,7 +38,6 @@ dashboard.buildTable = function buildTable(value, tableList) {
         if (contentExists) tableElement.appendChild(tr);
     }   
 };
-
 
 dashboard.buildPersonsArea = function buildPersonsArea(value) {
     personsAreaElement.innerHTML = '';
@@ -62,30 +61,67 @@ dashboard.search = function search(value) {
     // }
 };
 
-dashboard.addTableElement = function addTableElement() {
-  /*var name = document.getElementById('game-name').value;
-  var type = document.getElementById('game-type').value;
-  var cost = document.getElementById('game-cost').value;
-  var price = cost.toFixed(2);
-  var year = document.getElementById('game-year').value;
-  var rank = Math.floor(Math.random() * 101);
-  var url = document.getElementById('game-url').value;
-  // var image =  */
-  var name = document.getElementById('name-input').value;
-  firebase.database().ref('table-elements').push({              // to send data to firebase database
-    rank: '1' + Math.random() * 100, 
-    name: name, 
-    type: 'MOBA', 
-    cost: 'free',  
-    year: '2010'
-  });
-};
 
 dashboard.buildPersonsArea('');
+dashboard.buildTable('');
 
-firebase.database().ref('table-elements').on('child_added', function(data) {
-  dashboard.buildTable('', [data.val()]);
-});
+
+// dashboard.addTableElement = function addTableElement() {
+//   var name = document.getElementById('game-name').value;
+//   var type = document.getElementById('game-type').value;
+//   var cost = document.getElementById('game-cost').value;
+//   var price = cost.toFixed(2);
+//   var year = document.getElementById('game-year').value;
+//   var rank = Math.floor(Math.random() * 101);
+//   var url = document.getElementById('game-url').value;
+//   // var image =  
+//   var name = document.getElementById('name-input').value;
+//   firebase.database().ref('table-elements').push({              // to send data to firebase database
+//     rank: '1' + Math.random() * 100, 
+//     name: name, 
+//     type: 'MOBA', 
+//     cost: 'free',  
+//     year: '2010'
+//   });
+// };
+
+
+
+// from JAMES 
+// firebase.database().ref('table-elements').on('child_added', function(data) {
+//   dashboard.buildTable('', [data.val()]);
+// });
+
+firebase.database().ref('/table-elements/').once('value').then(function (snapshot) {
+  var name = snapshot.val().name;
+  var type = snapshot.val().type;
+  var price = snapshot.val().cost;
+//   var cost = price.toFixed(2);
+  var year = snapshot.val().year;
+  var rank = snapshot.val().rank;
+  console.log(name + ', ' + type + ', ' + price + ', ' + year + ',' + rank);
+  
+})
+
+
+
+
+// listRef.once("value", function(allGamesSnapshot) {
+//     allGamesSnapshot.forEach(function (gamesSnapshot) {
+//         var key = gamesSnapshot.key();
+//         var name = gamesSnapshot.child("name").val();
+//         var rank = gamesSnapshot.child("rank").val();
+//         var type = gamesSnapshot.child("type").val();
+//         var cost = gamesSnapshot.child("cost").val();
+//         var year = gamesSnapshot.child("year").val();
+//         if (key) {
+//             tableList
+            
+//         }
+//     });
+// });
+
+
 
 
 /* Modal Javascript */
@@ -93,9 +129,6 @@ firebase.database().ref('table-elements').on('child_added', function(data) {
 /* http://www.the-art-of-web.com/javascript/feedback-modal-window/
 // Original JavaScript code by Chirp Internet: www.chirp.com.au
 // Please acknowledge use of this code by including this header. */
-
-// Original JavaScript code by Chirp Internet: www.chirp.com.au
-// Please acknowledge use of this code by including this header.
 
 var checkForm = function(e)
 {
