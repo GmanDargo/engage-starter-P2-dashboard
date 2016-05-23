@@ -66,24 +66,23 @@ dashboard.buildPersonsArea('');
 dashboard.buildTable('');
 
 
-// dashboard.addTableElement = function addTableElement() {
-//   var name = document.getElementById('game-name').value;
-//   var type = document.getElementById('game-type').value;
-//   var cost = document.getElementById('game-cost').value;
-//   var price = cost.toFixed(2);
-//   var year = document.getElementById('game-year').value;
-//   var rank = Math.floor(Math.random() * 101);
+dashboard.addTableElement = function addTableElement() {
+  var gameName = document.getElementById('game-name').value;
+  var gameType = document.getElementById('game-type').value;
+  var gameCost = document.getElementById('game-cost').value;
+  var pubYear = document.getElementById('game-year').value;
+  var playerRank = Math.floor(Math.random() * 101);
 //   var url = document.getElementById('game-url').value;
-//   // var image =  
-//   var name = document.getElementById('name-input').value;
-//   firebase.database().ref('table-elements').push({              // to send data to firebase database
-//     rank: '1' + Math.random() * 100, 
-//     name: name, 
-//     type: 'MOBA', 
-//     cost: 'free',  
-//     year: '2010'
-//   });
-// };
+  // var image =  
+  firebase.database().ref('table-elements').push({              // to send data to firebase database
+    rank: playerRank, 
+    name: gameName, 
+    type: gameType, 
+    cost: gameCost,  
+    year: pubYear
+  });
+};
+
 
 
 
@@ -92,16 +91,25 @@ dashboard.buildTable('');
 //   dashboard.buildTable('', [data.val()]);
 // });
 
-firebase.database().ref('/table-elements/').once('value').then(function (snapshot) {
+firebase.database().ref('/table-elements').once('child_added').then(function (snapshot) {  
+    // tableList[] = 
+    // for (var i = 0; i < snapshot.length; i++) {
+    //     var element = snapshot[index];
+        
+    // }
+     
   var name = snapshot.val().name;
   var type = snapshot.val().type;
   var price = snapshot.val().cost;
-//   var cost = price.toFixed(2);
+//   var cost = parseFloat(price).toFixed(2);
   var year = snapshot.val().year;
-  var rank = snapshot.val().rank;
-  console.log(name + ', ' + type + ', ' + price + ', ' + year + ',' + rank);
+  var score = snapshot.val().rank;
+  var rank = parseInt(score);
+  console.log(name + ', ' + type + ', ' + price + ', ' + year + ', ' + rank);
   
-})
+});
+
+
 
 
 

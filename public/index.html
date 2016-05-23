@@ -88,14 +88,9 @@
           
         </div>
 
-        <!--
-        <div class="row">
-          <input type="text" id="name-input" placeholder="Name">
-          <button class="btn btn-primary" onclick="dashboard.addTableElement()">Save</button>
-        </div>
-        -->
+
         
-        <!-- Add/Remove Games Modal -->
+        <!-- Add Games Modal -->
         
         <div id="modal_wrapper">
           <div id="modal_window">
@@ -107,8 +102,8 @@
             <form id="modal_feedback" method="POST" action="#" accept-charset="UTF-8">
               <p><label>Name of the online game:<strong>*</strong><br>
                 <input type="text" autofocus required size="48" id="game-name" placeholder="World of Warcraft" name="name" value=""></label></p>
-              <p><label>Type or paste in the website address for the game (including htp://):<br>
-                <input type="url" autofocus  size="48" id="game-url" placeholder="https://devengage.me/" name="url" value=""></label></p>
+              <!--<p><label>Type or paste in the website address for the game (including htp://):<br>
+                <input type="url" autofocus  size="48" id="game-url" placeholder="https://devengage.me/" name="url" value=""></label></p>-->
               <p><label>Select the genre (type) of game:<strong>*</strong><br></label>
                 <select name="type" id="game-type">
                   <option value="FPS">First Person Shooter</option>
@@ -122,23 +117,62 @@
                 <input type="text" size="24" name="cost" id="game-cost" placeholder="20.00" value=""></label></p>
               <p><label>Enter the year the most recent version of the game launch<br>
                 <input type="text" size="24" name="year" id="game-year" placeholder="2016" value=""></label></p>
-              <p><label>Upload an image that represents the game<br>
-                <textarea required name="message" cols="48" rows="8" id="game-image"></textarea></label></p>
-              <p><input type="submit" name="feedbackForm" value="Send Message"></p>
-            </form>
+              <!--<p><label>Upload an image that represents the game<br>
+                <textarea required name="message" cols="48" rows="8" id="game-image"></textarea></label></p>-->
+              <p><button class="btn btn-primary" onclick="dashboard.addTableElement()">Add Game</button></p>
+              </form>
 
           </div>
           <!-- #modal_window -->
         </div>
         <!-- #modal_wrapper -->
-        <!-- /END Add/Remove Games modal -->
+        <!-- /END Add Games modal -->
+        
+                <!-- Add Games Modal -->
+        
+        <div id="modal_wrapper">
+          <div id="modal_window">
+
+            <div style="text-align: right;"><button class="btn btn-danger" id="modal_close" href="#">Close <b>X</b></button></div>
+
+            <p>Complete this form to add games to your Dashboard</p>
+
+            <form id="modal_feedback" method="POST" action="#" accept-charset="UTF-8">
+              <p><label>Name of the online game:<strong>*</strong><br>
+                <input type="text" autofocus required size="48" id="game-name" placeholder="World of Warcraft" name="name" value=""></label></p>
+              <!--<p><label>Type or paste in the website address for the game (including htp://):<br>
+                <input type="url" autofocus  size="48" id="game-url" placeholder="https://devengage.me/" name="url" value=""></label></p>-->
+              <p><label>Select the genre (type) of game:<strong>*</strong><br></label>
+                <select name="type" id="game-type">
+                  <option value="FPS">First Person Shooter</option>
+                  <option value="MMORPG">Massively Mutliplayer Online Roleplaying Game</option>
+                  <option value="RTS">Real-Time Strategy</option>
+                  <option value="MOBA">Mulitplayer Online Battle</option>
+                  <option value="SCG">Strategy Card Game</option>
+                  <option value="FPP">First Person Puzzle Game</option>
+                </select></p>
+              <p><label>Enter the Cost of the Game (enter 0 for Free-to-Play games):<br>
+                <input type="text" size="24" name="cost" id="game-cost" placeholder="20.00" value=""></label></p>
+              <p><label>Enter the year the most recent version of the game launch<br>
+                <input type="text" size="24" name="year" id="game-year" placeholder="2016" value=""></label></p>
+              <!--<p><label>Upload an image that represents the game<br>
+                <textarea required name="message" cols="48" rows="8" id="game-image"></textarea></label></p>-->
+              <p><button class="btn btn-primary" onclick="dashboard.addTableElement()">Add Game</button></p>
+              </form>
+
+          </div>
+          <!-- #modal_window -->
+        </div>
+        <!-- #modal_wrapper -->
+        <!-- /END Add Games modal -->
+
         
         <!-- begin Buttons area -->
         <div class="buttons">
-          <button class="btn btn-success">Display All Games</button>
-          <button class="btn btn-primary" id="modal_open">Add/Remove Games</button>
           <button class="btn btn-info">Search Games</button>
-        </div>
+          <button class="btn btn-success">Display All Games</button>
+          <button class="btn btn-primary" id="modal_open">Add Games</button>
+          <button class="btn btn-danger" id="modal_open">Remove Games</button>
 
         <h2 class="sub-header">Games List</h2>
         <div class="table-responsive">
