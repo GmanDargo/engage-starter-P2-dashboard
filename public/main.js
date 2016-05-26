@@ -7,78 +7,81 @@ var persons = [
     {name: 'Moss', info: 'There\'s a fire Roy', img: 'imgres.jpg'}
 ]
 
-// var tableList = [];
-
-var tableList = [
-    {rank: '1', name: 'LoL', type: 'MOBA', cost: 'free',  year: '2010'},
-    {rank: '2', name: 'Half-Life', type: 'FPS', cost: '$19',  year: '2005'},
-    {rank: '3', name: 'StarCraft', type: 'RTS', cost: '$19',  year: '2008'}
-];
+var tableList = [];             //table elements
+//
+// var tableList = [
+//     {rank: '1', name: 'LoL', type: 'MOBA', cost: 'free',  year: '2010'},
+//     {rank: '2', name: 'Half-Life', type: 'FPS', cost: '$19',  year: '2005'},
+//     {rank: '3', name: 'StarCraft', type: 'RTS', cost: '$19',  year: '2008'}
+// ];
 
 dashboard = {};
 
-dashboard.buildTable = function buildTable(value) {
+dashboard.buildTable = function buildTable(value, tableList) {
     // if(!tableList) tableList = [];
     tableElement.innerHTML = '';
     for (var i=0; i < tableList.length; i++) {
         var tr = document.createElement('TR');
-        var contentExists = false;
+        // var contentExists = false;
         for (var key in tableList[i]) {
             if (tableList[i].hasOwnProperty(key)) {
                 var element = tableList[i][key];
                 var td = document.createElement('td');
-                if (element.toLowerCase().indexOf(value) > -1) {
-                    contentExists = true;
-                }
+                // if (element.toLowerCase().indexOf(value) > -1) {
+                //     contentExists = true;
+                // }
                 var tdText = document.createTextNode(element);
                 td.appendChild(tdText);
                 tr.appendChild(td);
             }
         }
-        if (contentExists) tableElement.appendChild(tr);
-    }   
+        tableElement.appendChild(tr);
+    }
 };
 
 dashboard.buildPersonsArea = function buildPersonsArea(value) {
     personsAreaElement.innerHTML = '';
     for (var i = 0; i < persons.length; i++) {
         var element = persons[i];
-        if (element.name.toLowerCase().indexOf(value.toLowerCase())) { 
-            personsAreaElement.innerHTML += 
+        if (element.name.toLowerCase().indexOf(value.toLowerCase())) {
+            personsAreaElement.innerHTML +=
                 '<div class="col-xs-6 col-sm-3 placeholder">'+
                     '<img src="'+element.img+'" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">' +
                     '<h4>'+element.name+'</h4>' +
                     '<span class="text-muted">'+element.info+'</span>' +
                 '</div>'
-        }           
-    }    
+        }
+    }
 };
 
 dashboard.search = function search(value) {
     // if (value.length > 2) {
-    dashboard.buildTable(value);  
-    dashboard.buildPersonsArea(value) 
+    // dashboard.buildTable(value);
+    dashboard.buildPersonsArea(value)
     // }
 };
 
 
 dashboard.buildPersonsArea('');
-dashboard.buildTable('');
+// dashboard.buildTable('');
 
 
 dashboard.addTableElement = function addTableElement() {
   var gameName = document.getElementById('game-name').value;
   var gameType = document.getElementById('game-type').value;
-  var gameCost = document.getElementById('game-cost').value;
+  var gamePrice = document.getElementById('game-cost').value;
   var pubYear = document.getElementById('game-year').value;
   var playerRank = Math.floor(Math.random() * 101);
-//   var url = document.getElementById('game-url').value;
-  // var image =  
+  // var url = document.getElementById('game-url').value;
+  // var image =
+  if (true) {
+
+  }
   firebase.database().ref('table-elements').push({              // to send data to firebase database
-    rank: playerRank, 
-    name: gameName, 
-    type: gameType, 
-    cost: gameCost,  
+    rank: playerRank,
+    name: gameName,
+    type: gameType,
+    cost: gameCost,
     year: pubYear
   });
 };
@@ -86,27 +89,31 @@ dashboard.addTableElement = function addTableElement() {
 
 
 
-// from JAMES 
+// from JAMES
 // firebase.database().ref('table-elements').on('child_added', function(data) {
 //   dashboard.buildTable('', [data.val()]);
 // });
 
-firebase.database().ref('/table-elements').once('child_added').then(function (snapshot) {  
-    // tableList[] = 
+firebase.database().ref('table-elements').on('child_added', function (snapshot) {
+
+
+    tableList.push(snapshot.val());
+
     // for (var i = 0; i < snapshot.length; i++) {
-    //     var element = snapshot[index];
-        
+    //     var element = snapshot[i];
+    var name = snapshot.val().name;
+    var type = snapshot.val().type;
+    var price = snapshot.val().cost;
+    var cost = parseFloat(price).toFixed(2);
+    var year = snapshot.val().year;
+    var score = snapshot.val().rank;
+    var rank = parseInt(score);
+    console.log(name + ', ' + rank + ', ' + type + ', ' + year + ', ' + cost);
+    // console.log(tableList);
     // }
-     
-  var name = snapshot.val().name;
-  var type = snapshot.val().type;
-  var price = snapshot.val().cost;
-//   var cost = parseFloat(price).toFixed(2);
-  var year = snapshot.val().year;
-  var score = snapshot.val().rank;
-  var rank = parseInt(score);
-  console.log(name + ', ' + type + ', ' + price + ', ' + year + ', ' + rank);
-  
+
+    dashboard.buildTable('', tableList);
+
 });
 
 
@@ -124,7 +131,7 @@ firebase.database().ref('/table-elements').once('child_added').then(function (sn
 //         var year = gamesSnapshot.child("year").val();
 //         if (key) {
 //             tableList
-            
+
 //         }
 //     });
 // });
